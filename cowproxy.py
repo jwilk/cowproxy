@@ -20,7 +20,7 @@ def request(flow):
     flow.response = HTTPResponse.make(
         200,
         cow,
-        {"Content-Type": 'text/plain'}
+        {'Content-Type': 'text/plain'}
     )
 
 # vim:ts=4 sts=4 sw=4 et
