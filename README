@@ -1,3 +1,6 @@
+Overview
+========
+
 .. code:: console
 
    $ mitmproxy -s /path/to/cowproxy.py
@@ -14,5 +17,16 @@
    (__)\       )\/\
        ||----w |
        ||     ||
+
+Prerequisites
+=============
+
+mitmproxy_ ≥ 0.18
+
+Do not use any earlier version.
+mitmproxy fails open when the script causes errors.
+
+.. _mitmproxy:
+   https://mitmproxy.org/
 
 .. vim:ft=rst ts=3 sts=3 sw=3 et
