@@ -25,14 +25,7 @@ install:
 - pip install pydiatra pyflakes
 - pip install restructuredtext-lint pygments
 script:
-- mitmdump -s cowproxy.py &
-- export http_proxy=http://localhost:8080/
-- for i in $(seq 10); do
-    if ss -tln 'sport = 8080' | grep -w 8080; then break; fi;
-    sleep 1;
-  done
-- curl --silent --fail --show-error --include http://www.example.org/cow
-- pkill -x mitmdump
+- prove -v
 - python -m pydiatra .
 - python -m pyflakes .
 - restructuredtext-lint --encoding=UTF-8 README
