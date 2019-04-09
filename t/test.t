@@ -10,7 +10,7 @@ for cmd in ss curl
 do
     if ! command -v "$cmd" > /dev/null
     then
-        echo "1..0 SKIP $cmd not installed"
+        echo "1..0 # skip $cmd not installed"
         exit 0
     fi
 done
