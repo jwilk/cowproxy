@@ -1,4 +1,4 @@
-dist: trusty
+dist: xenial
 language: python
 jobs:
   include:
@@ -12,10 +12,8 @@ jobs:
     python: "3.6"
   - env: MITMPROXY=latest
     python: "3.7"
-    dist: xenial
   - env: MITMPROXY=latest
     python: "3.8-dev"
-    dist: xenial
 before_install:
 - mitmproxy="mitmproxy==$MITMPROXY"
 - mitmproxy="${mitmproxy%==latest}"
