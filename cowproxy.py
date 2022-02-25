@@ -4,9 +4,12 @@
 # SPDX-License-Identifier: MIT
 
 try:
-    from mitmproxy.http import HTTPResponse  # mitmproxy >= 1.0
+    from mitmproxy.http import Response as HTTPResponse  # mitmproxy >= 7.0
 except ImportError:
-    from mitmproxy.models import HTTPResponse
+    try:
+        from mitmproxy.http import HTTPResponse  # mitmproxy >= 1.0
+    except ImportError:
+        from mitmproxy.models import HTTPResponse
 
 cow = r'''
 ^__^
