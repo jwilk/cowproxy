@@ -6,10 +6,7 @@
 try:
     from mitmproxy.http import Response as HTTPResponse  # mitmproxy >= 7.0
 except ImportError:
-    try:
-        from mitmproxy.http import HTTPResponse  # mitmproxy >= 1.0
-    except ImportError:
-        from mitmproxy.models import HTTPResponse
+    from mitmproxy.http import HTTPResponse  # mitmproxy >= 1.0
 
 cow = r'''
 ^__^

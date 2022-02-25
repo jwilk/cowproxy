@@ -21,7 +21,7 @@ Overview
 Prerequisites
 =============
 
-mitmproxy_ ≥ 0.18
+mitmproxy_ ≥ 1.0
 
 Do not use any earlier version.
 mitmproxy fails open when the script causes errors.
