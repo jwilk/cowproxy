@@ -6,7 +6,7 @@
 set -e -u
 set -m
 
-for cmd in ss curl
+for cmd in mitmdump ss curl
 do
     if ! command -v "$cmd" > /dev/null
     then
