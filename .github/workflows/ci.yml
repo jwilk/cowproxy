@@ -1,0 +1,74 @@
+name: CI
+on:
+- push
+- pull_request
+jobs:
+  main:
+    strategy:
+      matrix:
+        include:
+        - python: '3.6'
+          mitmproxy: mitmproxy-1.0.1
+          os: ubuntu-18.04
+        - python: '3.7'
+          os: ubuntu-20.04
+        - python: '3.8'
+          os: ubuntu-20.04
+        - python: '3.9'
+          os: ubuntu-20.04
+        - python: '3.10'
+          os: ubuntu-20.04
+        - python: '3.11-dev'
+          os: ubuntu-20.04
+    runs-on: ${{matrix.os}}
+    steps:
+    - uses: actions/checkout@v2
+    - name: set up APT
+      run: |
+        printf 'Apt::Install-Recommends "false";\n' | sudo tee -a /etc/apt/apt.conf
+        sudo apt-get update
+    - name: install XML dev libs
+      run: |
+        sudo apt-get install libxslt1-dev libxml2-dev
+    - name: install OpenSSL 1.0
+      if: matrix.os == 'ubuntu-18.04'
+      run: |
+        sudo apt-get install libssl1.0-dev
+    - name: set up Python ${{matrix.python}}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{matrix.python}}
+    - name: set up pip cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip
+        key: pip-${{matrix.os}}-python${{matrix.python}}-${{matrix.mitmproxy || 'mitmproxy'}}
+    - name: install wheel
+      run: |
+        python3 -m pip --version
+        python3 -m pip install wheel
+    - name: install mitmproxy
+      run: |
+        v=${{matrix.mitmproxy}}
+        v=${v#mitmproxy-}
+        python3 -m pip install mitmproxy${v:+==$v}
+        if grep -rwm1 'from markupsafe import soft_unicode' ${{env.pythonLocation}}/lib/python*/site-packages/jinja2/; then
+          python3 -m pip install --upgrade 'MarkupSafe<2.1'
+        fi
+    - name: run tests
+      run: |
+        prove -v
+    - name: run pydiatra
+      run: |
+        python3 -m pip install pydiatra
+        python3 -m pydiatra -v .
+    - name: run pyflakes
+      run: |
+        python3 -m pip install pyflakes
+        python3 -m pyflakes .
+    - name: check README syntax
+      run: |
+        python3 -m pip install restructuredtext-lint pygments
+        rst-lint --level=info --encoding=UTF-8 README
+
+# vim:ts=2 sts=2 sw=2 et
