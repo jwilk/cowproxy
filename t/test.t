@@ -10,8 +10,8 @@ for cmd in mitmdump ss curl
 do
     if ! command -v "$cmd" > /dev/null
     then
-        echo "1..0 # skip $cmd not installed"
-        exit 0
+        echo "Bail out! $cmd is not installed."
+        exit 1
     fi
 done
 echo 1..1
