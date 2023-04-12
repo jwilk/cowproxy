@@ -8,8 +8,8 @@ jobs:
       matrix:
         include:
         - python: '3.6'
-          mitmproxy: mitmproxy-1.0.1
-          os: ubuntu-18.04
+          mitmproxy: mitmproxy-3.0
+          os: ubuntu-20.04
         - python: '3.7'
           os: ubuntu-20.04
         - python: '3.8'
@@ -32,10 +32,6 @@ jobs:
     - name: install XML dev libs
       run: |
         sudo apt-get install libxslt1-dev libxml2-dev
-    - name: install OpenSSL 1.0
-      if: matrix.os == 'ubuntu-18.04'
-      run: |
-        sudo apt-get install libssl1.0-dev
     - name: set up Python ${{matrix.python}}
       uses: actions/setup-python@v4
       with:
