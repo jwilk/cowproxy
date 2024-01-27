@@ -50,6 +50,11 @@ jobs:
         v=${{matrix.mitmproxy}}
         v=${v#mitmproxy-}
         python3 -m pip install mitmproxy${v:+==$v}
+        if grep -rwm1 'def url_quote' $pythonLocation/lib/python*/site-packages/werkzeug/; then
+          true
+        elif grep -rwFm1 'from werkzeug.urls import url_quote' ${{env.pythonLocation}}/lib/python*/site-packages/flask/; then
+          python3 -m pip install --upgrade 'werkzeug<3.0'
+        fi
         if grep -rwm1 'from markupsafe import soft_unicode' ${{env.pythonLocation}}/lib/python*/site-packages/jinja2/; then
           python3 -m pip install --upgrade 'MarkupSafe<2.1'
         fi
