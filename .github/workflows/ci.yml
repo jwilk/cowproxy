@@ -7,15 +7,11 @@ jobs:
     strategy:
       matrix:
         include:
-        - python: '3.6'
-          mitmproxy: mitmproxy-3.0
-          os: ubuntu-20.04
-        - python: '3.7'
-          os: ubuntu-20.04
         - python: '3.8'
-          os: ubuntu-20.04
+          os: ubuntu-22.04
+          mitmproxy: mitmproxy-5.3
         - python: '3.9'
-          os: ubuntu-20.04
+          os: ubuntu-22.04
         - python: '3.10'
           os: ubuntu-22.04
         - python: '3.11'
